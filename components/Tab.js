@@ -18,7 +18,7 @@ export default Tab
 
 const styles = StyleSheet.create({
     container:{
-      marginTop:100,
+        marginTop:100,
         paddingHorizontal:10,
         width:'100%',
         flexDirection:'row',

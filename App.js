@@ -1,11 +1,17 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import Navigation from './Navigation';
+import {Provider } from 'react-redux'
+import storeConfiguration from './redux/store'
 
 export default function App() {
+  const store = storeConfiguration();
+console.log(store)
   return (
     <View style={styles.container}>
         <StatusBar light />
-        <Navigation />
+        <Provider store={store}> 
+          <Navigation />
+        </Provider>
     </View>
   );
 }
