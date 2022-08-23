@@ -6,7 +6,8 @@ import {
  GET_RESTAURANTDETAIL_REQUEST,
  GET_RESTAURANTDETAIL_SUCCESS,
  GET_RESTAURANTDETAIL_FAIL,
- GET_RESTAURANTDETAIL_RESET
+ GET_RESTAURANTDETAIL_RESET,
+ CLEAR_ERRORS
 } from '../contants/resturantConstant.js'
 
 
@@ -20,6 +21,11 @@ const restaurantReducer = (state={restaurants:[]}, action) =>{
             return {loading:false, error:action.payload}
         case GET_RESTAURANTS_RESET:
             return {}
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error:null
+            }
         default :
         return state;
     }
