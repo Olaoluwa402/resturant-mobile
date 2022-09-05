@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ActivityIndicator, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ActivityIndicator, ScrollView} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Tab from '../components/Tab'
@@ -9,6 +9,7 @@ import { getRestaurantsAction } from '../redux/actions/ResturantAction'
 import RestaurantItem from '../components/Home/RestaurantItem'
 import { clearErrors } from '../redux/actions/ResturantAction'
 import AlertMessage from '../components/AlertMessage'
+import Divider from '../components/Divider'
 
 const Home = ({navigate, route}) => {
   const dispatch = useDispatch()
@@ -45,7 +46,9 @@ const Home = ({navigate, route}) => {
         {loading ? (
         <ActivityIndicator animating={loading} size={40} color='green'/>
         ) : restaurants ? (<RestaurantItem restaurants={restaurants}/>) : null}
-      </ScrollView>
+      </ScrollView> 
+      
+      <Divider />
       <Tab />
     </View>
   )

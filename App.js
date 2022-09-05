@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import Navigation from './Navigation';
 import {Provider } from 'react-redux'
