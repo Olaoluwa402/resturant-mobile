@@ -1,17 +1,23 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView} from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 import {Ionicons} from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
 const RestaurantItem = ({restaurants}) => {
+    const navigation = useNavigation();
+
   return (
     <ScrollView>
         {
              restaurants.map((restaurant)=> (
-                <View style={styles.restaurantItem} key={restaurant.id}>
+                <TouchableOpacity style={styles.restaurantItem} key={restaurant.id} onPress={()=> navigation.navigate('details', {
+                    restaurant:restaurant
+                })}>
                     <RestaurantImage image={restaurant.image_url}/>
                     <RestaurantInfo name={restaurant.name} rating={restaurant.rating}/>
-                </View>
+                </TouchableOpacity>
             ))
         }
     </ScrollView>

@@ -10,6 +10,7 @@ import Delivery from './screens/Delivery'
 import Search from './screens/Search'
 import Account from './screens/Account'
 import {Ionicons} from '@expo/vector-icons'
+import Details from './screens/DetailsScreen';
 
 
 
@@ -69,6 +70,7 @@ const Navigation = () => {
             title:'Your Deliveries',
             }}/>
           <Stack.Screen name='order' component={Order}/>
+          <Stack.Screen name='details' component={Details}/>
           <Stack.Screen name='account' component={Account} />
           <Stack.Screen name='search' component={Search}/>
         </Stack.Navigator>
