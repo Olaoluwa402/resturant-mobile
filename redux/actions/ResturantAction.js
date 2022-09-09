@@ -5,6 +5,7 @@ import {
     GET_RESTAURANTDETAIL_REQUEST,
     GET_RESTAURANTDETAIL_SUCCESS,
     GET_RESTAURANTDETAIL_FAIL,
+   ADD_MENUTO_CART,
     CLEAR_ERRORS
    } from '../contants/resturantConstant.js'
 
@@ -27,7 +28,7 @@ import {
          })
 
          const {data} = await axios.get(url, config);
-      console.log(data)
+      // console.log(data)
          dispatch({
             type:GET_RESTAURANTS_SUCCESS,
             payload: data.businesses.filter((item)=> item.transactions.includes(activeTab.toLowerCase()))
@@ -48,3 +49,15 @@ export const clearErrors = () => async (dispatch) => {
      type: CLEAR_ERRORS,
    });
  };
+
+ //add menu to cart
+ export const selectedCartItemsAction = (isCheckboxChecked, menuItem, restaurantName)=> async (dispatch) =>{
+         dispatch({
+            type:ADD_MENUTO_CART,
+            payload:{
+               ...menuItem,
+               isCheckboxChecked,
+               restaurantName
+            }
+         })
+ }

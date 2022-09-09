@@ -13,7 +13,7 @@ const Categories = ({route}) => {
           </View>
           <View style={styles.backdrop}></View>
       </ImageBackground>
-      <Tab />
+
     </View>
   )
 }

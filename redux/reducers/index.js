@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
-import { restaurantReducer, restaurantDetailReducer } from "./resturantReducer";
+import { restaurantReducer, restaurantDetailReducer,selectedCartItemsReducer  } from "./resturantReducer";
 
 const reducers = combineReducers({
     restaurantData:restaurantReducer,
-    restaurantDetail:restaurantDetailReducer
+    restaurantDetail:restaurantDetailReducer,
+    cartItems:selectedCartItemsReducer 
 })
 
 const rootReducer = (state,action) => {

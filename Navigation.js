@@ -65,7 +65,7 @@ const Navigation = () => {
           <Stack.Screen name='home' component={SideNav} options={{
                 headerShown:false
             }}/>
-          <Stack.Screen name='categories' component={Categories} options={{title:'Our categories',  headerShown:false}}/>
+          <Stack.Screen name='categories' component={Categories} options={{title:'Our categories'}}/>
           <Stack.Screen name='delivery' component={Delivery} options={{
             title:'Your Deliveries',
             }}/>

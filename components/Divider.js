@@ -14,6 +14,7 @@ export default Divider
 const styles = StyleSheet.create({
     divider:{
         borderBottomWidth:1,
-        borderBottomColor:'black'
+        borderBottomColor:'black',
+        opacity:0.7
     }
 })

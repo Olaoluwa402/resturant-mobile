@@ -33,7 +33,7 @@ const RestaurantImage = ({image_url}) => {
 const RestaurantTitle = ({title}) => {
     return (
         <View>
-           <Text style={{fontWeight:'bold'}}>{title}</Text>
+           <Text style={{fontWeight:'bold', fontSize:18}}>{title}</Text>
         </View>
     )
 }

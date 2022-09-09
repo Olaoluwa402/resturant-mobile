@@ -6,7 +6,7 @@ const Order = () => {
   return (
     <View>
       <Text>Order</Text>
-      <Tab />
+  
     </View>
   )
 }

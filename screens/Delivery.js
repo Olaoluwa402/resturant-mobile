@@ -6,7 +6,6 @@ const Delivery = () => {
   return (
     <View>
       <Text>Delivery</Text>
-      <Tab />
     </View>
   )
 }

@@ -7,6 +7,7 @@ import {
  GET_RESTAURANTDETAIL_SUCCESS,
  GET_RESTAURANTDETAIL_FAIL,
  GET_RESTAURANTDETAIL_RESET,
+ ADD_MENUTO_CART,
  CLEAR_ERRORS
 } from '../contants/resturantConstant.js'
 
@@ -31,6 +32,35 @@ const restaurantReducer = (state={restaurants:[]}, action) =>{
     }
 }
 
+const initialState = {
+    selectedItems:{
+        items:[],
+        restaurantName:''
+    }
+}
+const selectedCartItemsReducer = (state=initialState, action)=> {
+        switch(action.type){
+            case ADD_MENUTO_CART:
+                const copy = {...state}
+                if(action.payload.isCheckboxChecked){
+                    copy.selectedItems = {
+                        items:[...copy.selectedItems.items, action.payload],
+                        restaurantName:action.payload.restaurantName
+                    }
+                }else{
+                    copy.selectedItems = {
+                        items:[...copy.selectedItems.items.filter((item)=> item.title !== action.payload.title)],
+                        restaurantName:''
+                    }
+                }
+
+                console.log('copy',copy)
+             return copy
+            default:
+                return state
+        }
+}
+
 const restaurantDetailReducer = (state={}, action) =>{
     switch(action.type){
          case GET_RESTAURANTDETAIL_REQUEST :
@@ -46,4 +76,4 @@ const restaurantDetailReducer = (state={}, action) =>{
     }
 }
 
-export {restaurantReducer, restaurantDetailReducer}
+export {restaurantReducer, restaurantDetailReducer, selectedCartItemsReducer}
