@@ -3,17 +3,49 @@ import React, {useState} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
 import CartItem from './CartItem'
 import { ScrollView } from 'react-native-gesture-handler'
+import {getFirestore, collection, addDoc, serverTimestamp} from "firebase/firestore";
+// import firebaseApp from '../../firebase'
+import { useNavigation } from '@react-navigation/native'
 
-const CartItems = () => {
- const [modalVisible, setModalVisible] = useState(false)
+const CartItems = ({restaurantName}) => {
+  const navigation = useNavigation()
+  const [modalVisible,setModalVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   const dispatch = useDispatch();
-  const {items, restaurantName} = useSelector((state)=> state.cartItems.selectedItems)
+  const {items, } = useSelector((state)=> state.cartItems.selectedItems)
  
-  const total = items.map((item)=> Number(item.price.replace('$', ''))).reduce((acc, curr)=>acc + curr,0)
+  const total = items
+    .filter((item)=> item.restaurantName === restaurantName)
+    .map((item)=> Number(item.price.replace('$', '')))
+    .reduce((acc, curr)=>acc + curr,0)
 console.log(total)
 
 const totalUSD = `$${total.toFixed(2)}`
 
+const addOrderToFireBase = async()=>{
+          setModalVisible(false)
+          navigation.navigate('ordercomplete')
+
+        // const db = getFirestore(firebaseApp);
+        // const usersCollection = collection(db, 'users')
+        // try {
+        //     setLoading(true)
+        //     const docRef = await addDoc(usersCollection , {
+        //         items:items,
+        //         restaurantName:restaurantName,
+        //         createdAt: serverTimestamp()
+        //     });
+        //     console.log("Document written with ID: ", docRef);
+        //     setLoading(false)
+        //     setModalVisible(false)
+        //     navigation.navigate('ordercomplete')
+        //   } catch (e) {
+        //     console.error("Error adding document: ", e);
+        //     setLoading(false)
+        // }
+
+   }
 
 const ModalContent = () => {
     return (
@@ -30,7 +62,7 @@ const ModalContent = () => {
               </View>
 
               <View  style={styles.checkout}>
-                <TouchableOpacity  style={styles.checkoutAction} onPress={()=>setModalVisible(false)}>
+                <TouchableOpacity  style={styles.checkoutAction} onPress={()=> addOrderToFireBase()}>
                   <Text  style={styles.checkoutText}>Checkout</Text>
                   <Text  style={styles.checkoutTotal}>{totalUSD}</Text>
                 </TouchableOpacity>

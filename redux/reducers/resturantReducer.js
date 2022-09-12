@@ -47,7 +47,7 @@ const selectedCartItemsReducer = (state=initialState, action)=> {
                         items:[...copy.selectedItems.items, action.payload],
                         restaurantName:action.payload.restaurantName
                     }
-                }else{
+                }else{ 
                     copy.selectedItems = {
                         items:[...copy.selectedItems.items.filter((item)=> item.title !== action.payload.title)],
                         restaurantName:''

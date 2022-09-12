@@ -12,4 +12,4 @@ const rootReducer = (state,action) => {
 }
 
 
-export default rootReducer;
+export default rootReducer; 

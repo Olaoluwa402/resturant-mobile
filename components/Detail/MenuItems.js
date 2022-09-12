@@ -5,66 +5,22 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { useSelector, useDispatch } from 'react-redux'
 import {selectedCartItemsAction} from '../../redux/actions/ResturantAction'
 
-const menu = [
-    {
-        title:'Fried rice with chicken',
-        description:'Delicious fried rice with fried chicken ',
-        price:'$20.12',
-        image:require('../../assets/images/fried-rice-chicken.jpg')
-    },
-    {
-        title:' Strawberry Cake',
-        description:'Well prepared and delicious cake',
-        price:'$10.12',
-        image:require('../../assets/images/strawberry-cake.jpg')
-    },
-    {
-        title:'Stir Fried Rice Noodles',
-        description:'Delicious Stir Fried Rice Noodles',
-        price:'$9.12',
-        image:require('../../assets/images/stir-fry.jpg')
-    },
-    {
-        title:'Fresh Shawarma Sandwich',
-        description:'Delicious and Fresh Shawarma Sandwich',
-        price:'$6.99',
-        image:require('../../assets/images/shawarma-sandwish.jpg')
-    },
-    {
-        title:' Strawberry Cake',
-        description:'Well prepared and delicious cake',
-        price:'$10.12',
-        image:require('../../assets/images/strawberry-cake.jpg')
-    },
-    {
-        title:'Stir Fried Rice Noodles',
-        description:'Delicious Stir Fried Rice Noodles',
-        price:'$9.12',
-        image:require('../../assets/images/stir-fry.jpg')
-    },
-    {
-        title:'Fresh Shawarma Sandwich',
-        description:'Delicious and Fresh Shawarma Sandwich',
-        price:'$6.99',
-        image:require('../../assets/images/shawarma-sandwish.jpg')
-    }
-]
 
-const MenuItems = ({restaurantName}) => {
+const MenuItems = ({restaurantName, foods, hideCheckBox}) => {
     const cartItems = useSelector((state)=> state.cartItems.selectedItems.items)
     const dispatch = useDispatch();
   console.log('cartItems',cartItems)
 
     const isIncart = (menuItem, cartItems) =>{
-            return Boolean(cartItems.find((item) => item.title === menuItem.title))
+            return Boolean(cartItems.find((item) => item.title === menuItem.title && item.restaurantName === restaurantName))
     }
   return ( 
     <>
     <ScrollView style={styles.container}>
-        {menu.map((menuItem, i)=> (
+        {foods.map((menuItem, i)=> (
             <View key={i}>
                <View style={styles.innerContainer}>
-                    <BouncyCheckbox 
+                    {!hideCheckBox && <BouncyCheckbox 
                         size={20} 
                         fillColor="green"
                         innerIconStyle={{ borderWidth: 4 }}
@@ -74,7 +30,7 @@ const MenuItems = ({restaurantName}) => {
                             borderColor:'red',
                             borderRadius:0,
                            padding:0
-                        }}/>
+                        }}/>}
                     <RestaurantInfo menuItem={menuItem}/>
                     <RestaurantImage menuItem={menuItem}/>
                </View>
