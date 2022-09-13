@@ -9,7 +9,7 @@ import {selectedCartItemsAction} from '../../redux/actions/ResturantAction'
 const MenuItems = ({restaurantName, foods, hideCheckBox}) => {
     const cartItems = useSelector((state)=> state.cartItems.selectedItems.items)
     const dispatch = useDispatch();
-  console.log('cartItems',cartItems)
+//   console.log('cartItems',cartItems)
 
     const isIncart = (menuItem, cartItems) =>{
             return Boolean(cartItems.find((item) => item.title === menuItem.title && item.restaurantName === restaurantName))

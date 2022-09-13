@@ -35,7 +35,6 @@ const menu = [
 const DetailsScreen = ({route}) => {
     const {restaurant} = route.params;
 
-    console.log('from detail',restaurant)
   return (
     <View style={styles.container}>
        <About restaurant={restaurant}/>

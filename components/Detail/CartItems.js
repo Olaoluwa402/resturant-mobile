@@ -4,8 +4,10 @@ import { useSelector, useDispatch} from 'react-redux'
 import CartItem from './CartItem'
 import { ScrollView } from 'react-native-gesture-handler'
 import {getFirestore, collection, addDoc, serverTimestamp} from "firebase/firestore";
-// import firebaseApp from '../../firebase'
+import firebaseApp from '../../firebase'
 import { useNavigation } from '@react-navigation/native'
+import Spinner from '../Spinner'
+import { CLEAR_CART } from '../../redux/contants/resturantConstant'
 
 const CartItems = ({restaurantName}) => {
   const navigation = useNavigation()
@@ -18,33 +20,44 @@ const CartItems = ({restaurantName}) => {
   const total = items
     .filter((item)=> item.restaurantName === restaurantName)
     .map((item)=> Number(item.price.replace('$', '')))
-    .reduce((acc, curr)=>acc + curr,0)
-console.log(total)
+    .reduce((acc, curr)=>acc + curr,0) 
 
 const totalUSD = `$${total.toFixed(2)}`
 
 const addOrderToFireBase = async()=>{
-          setModalVisible(false)
-          navigation.navigate('ordercomplete')
+  try {
+    //set loading to
+    setLoading(true);
 
-        // const db = getFirestore(firebaseApp);
-        // const usersCollection = collection(db, 'users')
-        // try {
-        //     setLoading(true)
-        //     const docRef = await addDoc(usersCollection , {
-        //         items:items,
-        //         restaurantName:restaurantName,
-        //         createdAt: serverTimestamp()
-        //     });
-        //     console.log("Document written with ID: ", docRef);
-        //     setLoading(false)
-        //     setModalVisible(false)
-        //     navigation.navigate('ordercomplete')
-        //   } catch (e) {
-        //     console.error("Error adding document: ", e);
-        //     setLoading(false)
-        // }
+    //connect to the datbase created using the getFirestore function and the app
+    const db = getFirestore(firebaseApp);
+     
+    //created collection
+    const orderCollection = collection(db, "orders");
 
+    //add document into collection
+    const orderRef = await addDoc(orderCollection, {
+        items:items,
+        restaurantName:restaurantName,
+        createdAt:serverTimestamp()
+    })
+    console.log('orderRef', orderRef)
+
+    setModalVisible(false)
+    navigation.navigate('ordercomplete', {
+      items:items,
+      cartTotal:totalUSD, 
+      restaurantName:restaurantName
+    })
+
+      dispatch({
+        type:CLEAR_CART
+      })
+
+  } catch (error) {
+      console.log(error)
+      setLoading(false)
+  }
    }
 
 const ModalContent = () => {
@@ -74,11 +87,10 @@ const ModalContent = () => {
 
   return (
     <>
-      
-      <Modal animationType='slide' visible={modalVisible} transparent={true} onRequestClose = {()=> setModalVisible(false)}>
+      {loading ? <Spinner /> : <><Modal animationType='slide' visible={modalVisible} transparent={true} onRequestClose = {()=> setModalVisible(false)}>
           {ModalContent()}
       </Modal>
-
+ 
       {total ?
         (<View style={styles.container}>
             <View  style={styles.innerContainer}>
@@ -88,7 +100,7 @@ const ModalContent = () => {
               </TouchableOpacity>
             </View>
         </View>) : (<></>)
-    }
+    }</>}
     </>
   )
 }

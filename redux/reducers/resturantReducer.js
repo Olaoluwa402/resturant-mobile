@@ -8,7 +8,8 @@ import {
  GET_RESTAURANTDETAIL_FAIL,
  GET_RESTAURANTDETAIL_RESET,
  ADD_MENUTO_CART,
- CLEAR_ERRORS
+ CLEAR_ERRORS,
+ CLEAR_CART
 } from '../contants/resturantConstant.js'
 
 
@@ -53,10 +54,15 @@ const selectedCartItemsReducer = (state=initialState, action)=> {
                         restaurantName:''
                     }
                 }
-
-                console.log('copy',copy)
              return copy
-            default:
+                case CLEAR_CART:
+                    return {
+                        selectedItems:{
+                            items:[],
+                            restaurantName:''
+                        }
+                    }
+            default: 
                 return state
         }
 }

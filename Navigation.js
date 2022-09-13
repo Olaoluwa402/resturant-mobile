@@ -71,7 +71,7 @@ const Navigation = () => {
             title:'Your Deliveries',
             }}/>
           <Stack.Screen name='order' component={Order}/>
-          <Stack.Screen name='ordercomplete' component={OrderCompleted}/>
+          <Stack.Screen name='ordercomplete' component={OrderCompleted} options={{headerShown:false}}/>
           <Stack.Screen name='details' component={Details}/>
           <Stack.Screen name='account' component={Account} />
           <Stack.Screen name='search' component={Search}/>
